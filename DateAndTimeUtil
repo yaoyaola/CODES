@@ -1,0 +1,32 @@
+public class DateAndTimeUtil {
+	
+	//格林威治时间转换为当地时间
+	public Date translateUtcTimeToLocal(Date date) throws ParseException{
+		if(date!=null){
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        TimeZone srcTimeZone = TimeZone.getTimeZone("UTC");  
+	        TimeZone destTimeZone = TimeZone.getTimeZone("GMT+8");
+			String dateStr = dateTransformBetweenTimeZone(date, df, srcTimeZone, destTimeZone);
+			return df.parse(dateStr);
+		}
+		return null;
+	}
+	
+	public String dateTransformBetweenTimeZone(Date sourceDate, DateFormat formatter,  
+	        TimeZone sourceTimeZone, TimeZone targetTimeZone) {  
+	        Long targetTime = sourceDate.getTime() - sourceTimeZone.getRawOffset() + targetTimeZone.getRawOffset();  
+	        return formatter.format(new Date(targetTime));
+    }  
+	
+	//加年份,月,日
+	public Date AddDate (){
+		Calendar cal=Calendar.getInstance(); 
+		cal.add(Calendar.YEAR, 5);
+		cal.add(Calendar.MONTH, 2);
+		cal.add(Calendar.DAY_OF_YEAR, 10);
+		Date date=cal.getTime(); 
+		return date;
+	}
+	
+
+}
